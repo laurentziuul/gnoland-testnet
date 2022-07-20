@@ -1,4 +1,5 @@
-# gnoland-testnetOrdinea în care exec ar fi urmaotoarea : 
+# gnoland-testnet
+Ordinea în care exec ar fi urmaotoarea : 
 
 Din CMD sau Shell ,deschizi cu admin,dupa fiecare comnda dai enter
 
