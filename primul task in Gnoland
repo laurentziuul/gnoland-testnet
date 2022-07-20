@@ -1,0 +1,64 @@
+Primul task in gnoland 
+
+inregistrezi wallets , iei 2k gnot ii trimiti la SC , rezervi username , inregistrezi tweet in dashboard
+
+
+Deschide Ubuntu , tastezi
+
+cd gno
+
+
+Verifici wallet 
+
+./build/gnokey list
+
+
+
+Rulam un script prin care primim 2k gnot din faucet,lasati-l pornit pana la 2100 gnot si inchideti-l cu Ctrl C,  nu abuzati de el pt a evita ban.
+
+Inlocuesti ADDRESS cu adresa wallet 
+
+while true; do curl 'https://gno.land:5050/' --data-raw 'toaddr=ADDRESS'; ./build/gnokey query "bank/balances/ADDRESS" --remote gno.land:36657; sleep 2; done;
+
+
+
+Copiezi wallet address si o lipesti in locul cuv ADDRESS din urm comanda 
+
+./build/gnokey query auth/accounts/ADDRESS --remote gno.land:36657
+
+
+Copiezi account number si sequence pe care le vom folosim putin mai jos
+
+
+Trimiti 2k gnot in sc pt username. Inlocuesti ADDRESS cu adresa wallet iar USERNAME (un username din litere mici intre 6-17 caractere)
+
+./build/gnokey maketx call ADDRESS --pkgpath "gno.land/r/users" --func "Register" --gas-fee 1gnot --gas-wanted 2000000 --send "2000gnot" --args "" --args "USERNAME" --args "" > unsigned.tx
+
+
+
+ Initiam tranzactia: inlocuesti ADDRESS (aresa wallet) ACOUNT_NUMBER si SEQUENCE_NUMBER( le ai mai sus )
+
+
+./build/gnokey sign ADDRESS --txpath unsigned.tx --chainid testchain --number ACCOUNTNUMBER --sequence SEQUENCENUMBER > signed.tx
+
+
+Introduci parola pt a finaliza
+
+
+Trimiti tx 
+
+./build/gnokey broadcast signed.tx --remote gno.land:36657
+
+
+Primesti mesaj de confirmare cu gas fee
+
+Verifici username https://gno.land/r/users 
+
+Dai un tweet legat gnoland,copiezi link si-l inlocuiesti la URL , ADDRESS (wallet address)
+
+./build/gnokey maketx call ADDRESS --pkgpath "gno.land/r/boards" --func "CreateReply" --gas-fee 1gnot --gas-wanted 2000000 --send "" --broadcast true --chainid testchain --args "1" --args "8" --args "8" --args "URL" --remote gno.land:36657
+
+
+Introduci parola ,all done ✅
+
+Vezi postarea in josul paginii https://gno.land/r/boards:gnolang/8
